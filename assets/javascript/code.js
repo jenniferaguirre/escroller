@@ -71,6 +71,12 @@ for (let i = 0; i < questions[runningQuestion].choices.length; i++) {
 }
 
 function selectedButton() {
+    console.log(this.value)
+
+    if(this.value === questions[runningQuestion].correct) {
+        count = count + 5
+    }
+    console.log(count)
     runningQuestion++
     renderQuestion()
 }
