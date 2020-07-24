@@ -125,4 +125,8 @@ if(correct== questions[runningQuestion].correct){
  
 
 
-
+//THINGS TO NEED TO BE WORK ON'//
+// DISPLAY HOW MANY POINTS the user got //
+//display wrong anD correct questions
+// else statmn taking down points
+//try to make timer appear and show 
