@@ -1,128 +1,132 @@
-
-
-
-
-
-
-
-
-
 const start = document.getElementById("start");
-const quiz= document.getElementById("quiz");
-const question= document.getElementById("question");
-// const optionA= document.getElementById("A");
-// const optionB= document.getElementById("B");
-// const optionC= document.getElementById("C");
-const counter= document.getElementById("counter");
-const progress= document.getElementById("progress");
-const scoreDiv= document.getElementById("score");
-
-
-
-
-
+const quiz = document.getElementById("quiz");
+const timerEl = document.getElementById("timer");
+const timeLeft = document.getElementById("timeLeft");
+const finalScore = document.getElementById("finalScore");
+const highScore = document.getElementById("highScore");
+const question = document.getElementById("question");
+const message = document.getElementById("message");
+const scoreDiv = document.getElementById("score");
 
 
 //arrays
-    var questions = [
-        {
+var questions = [
+    {
         question: "Inside which HTML element do we put the Javacript?",
-            choices:["<script>",  "<javascript>", "scripting", "<div>"],
+        choices: ["<script>", "<javascript>", "scripting", "<div>"],
         correct: "<script>"
-        }, 
-    
-      {
-        question : "Where is the correct place to insert a JavaScript?",
-        choices:[    
-        "The <head> section",
-        "the <body> section","Both the <head> section and <body> section are correct",],
+    },
+
+    {
+        question: "Where is the correct place to insert a JavaScript?",
+        choices: [
+            "The <head> section",
+            "the <body> section", "Both the <head> section and <body> section are correct",],
         correct: "Both the <head> section and <body> section are correct"
-        }, 
-    
-        {
+    },
+
+    {
         question: "How do you create a function in JavaScript?",
-        choices:["function: myFunction()","function myFunction()","function=myFunction()"],
+        choices: ["function: myFunction()", "function myFunction()", "function=myFunction()"],
         correct: "function myFunction()"
-        },
-    
-      
-    ];
-    
+    },
 
-const lastQuestion=questions.lengt-1;
-var runningQuestion=0;
-var count =0;
-const questionTime=10;
-var TIMER;
-var score=0;
 
-function renderQuestion(){
+];
 
-    var q = questions[runningQuestion];
-    question.innerHTML="<p>"+ q.question +"</p>"
-for (let i = 0; i < questions[runningQuestion].choices.length; i++) {
-    var button = document.createElement("button")
-    button.setAttribute("class", "userChoice")
-    button.setAttribute("value", questions[runningQuestion].choices[i])
-    button.onclick =  selectedButton
-    button.textContent = questions[runningQuestion].choices[i]
-    question.appendChild(button)
+var timerId;
+var runningQuestion;
+var questionTime;
+var score;
+var highscore = 0;
+
+
+start.addEventListener("click", startQuiz);
+
+
+function startQuiz() {
+    runningQuestion = 0;
+    questionTime = 10;
+    score = 0;
+
+    message.style.display = "none";
+    scoreDiv.style.display = "none";
+    start.style.display = "none";
+    quiz.style.display = "block";
+    timerEl.style.display = "block";
+
+    startTimer();
+    renderQuestion();
+}
+
+function startTimer() {
+    clearInterval(timerId)
+    timeLeft.textContent = questionTime
+
+    timerId = setInterval(function () {
+        questionTime--;
+        timeLeft.textContent = questionTime
+
+        if (questionTime <= 0) {
+            renderScore()
+        }
+
+    }, 1 * 1000);
+}
+
+function renderQuestion() {
+    const q = questions[runningQuestion];
+
+    question.innerHTML = "<p>" + q.question + "</p>"
+
+    for (let i = 0; i < q.choices.length; i++) {
+        var button = document.createElement("button")
+        button.setAttribute("class", "userChoice")
+        button.setAttribute("value", q.choices[i])
+        button.onclick = selectedButton
+        button.textContent = q.choices[i]
+        question.appendChild(button)
+    }
 
 }
 
 function selectedButton() {
-    console.log(this.value)
-
-    if(this.value === questions[runningQuestion].correct) {
-        count = count + 5
+    if (this.value == questions[runningQuestion].correct) {
+        score++
+        questionTime += 10
+    } else {
+        questionTime += 5
     }
-    console.log(count)
+
     runningQuestion++
-    renderQuestion()
+
+    if (runningQuestion < questions.length) {
+        renderQuestion()
+    } else {
+        renderScore()
+    }
 }
 
-    
+function renderScore() {
+    clearInterval(timerId)
 
+    timerEl.style.display = "none"
+    quiz.style.display = "none"
+    start.style.display = "block"
+    scoreDiv.style.display = "block"
+    message.style.display = "block"
 
-}
-    // optionA.innerHTML=q.optionA;
-    // optionB.innerHTML=q.optionB;
-    // optionC.innerHTML=q.optionC;
+    if (score > highscore) {
+        highscore = score
+        message.textContent = "YOU GOT THE HIGH SCORE!!"
+    } else {
+        message.textContent = "Nice try!!"
+    }
 
-
-
-
-start.addEventListener("click",startQuiz);
-
-
-
-function startQuiz(){
-    start.style.display="none";
-    renderQuestion();
-    quiz.style.display="block"
-    renderProgress();
-    renderCounter();
-    TIMER=setInterval(renderCounter,1000);
-
+    finalScore.textContent = score
+    highScore.textContent = highscore
 }
 
-
-
- 
-
-
-function checkAnswer(){
-if(correct== questions[runningQuestion].correct){
-    score++
-}else{
-
-
-    
-}
-
-
-}
- 
 
 
 //THINGS TO NEED TO BE WORK ON'//

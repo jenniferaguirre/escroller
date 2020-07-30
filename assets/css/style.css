@@ -1,8 +1,18 @@
-.container{
-    background-color: rosybrown;
+body{
+    background-color: salmon;
+   
 }
+#start{padding-left: 50%;
+font-size: x-large;
 
-#option{
 
-    background-color: saddlebrown;
+
+
+}
+#question{
+    font-size:35px;
+    color: chartreuse;
+    padding-left: 50%;
+border-bottom-width: medium;
+padding-bottom: 70px;
 }
