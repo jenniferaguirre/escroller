@@ -1,18 +1,40 @@
 body{
-    background-color: salmon;
+    background-image: url("../css/quiz.jpg");
+    background-color: lightsteelblue;
+    position: relative;
    
 }
-#start{padding-left: 50%;
-font-size: x-large;
+#start{
+    size:35x;
+    
+    color: ivory;
+    padding-left: 50%;
+font-size: 35px; 
+}
 
 
+#timer{
+font-size: 45px;
+
+}
+#timeLeft{
+    font-size:45px;
 
 
 }
+
+
 #question{
     font-size:35px;
-    color: chartreuse;
-    padding-left: 50%;
+    color: white;
+    
 border-bottom-width: medium;
 padding-bottom: 70px;
+}
+
+
+
+#score{
+    color: whitesmoke;
+    font-size: 55px;
 }
